@@ -1,6 +1,6 @@
 # db48trani
 
-- Link: https://fwb48trani.herokuapp.com/
+- Link: https://db48trani.herokuapp.com/
 
 
 ### My Resource
