@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+
+  -
+    let results = [{name: "T-Rex", color: "Black", danger_rating: 10}, {name: "Homie-adon", color: "Aqua", danger_rating: 3}, {name: "Tri-horn", color: "Red", danger_rating: 6}]
+  
+  div(class="container-fluid")
+    div(class="row")
+      for dino in results
+        div(class="col-sm-3") Dino: #{dino.name} -- Color: #{dino.color} -- Danger Rating: #{dino.danger_rating}
