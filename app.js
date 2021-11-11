@@ -3,10 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var dino = require("./models/dino");
+
+const connectionString = process.env.MONGO_CON 
+mongoose = require('mongoose'); 
+mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true}); 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var dinoRouter = require('./routes/Dino')
+var dinoRouter = require('./routes/Dino');
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -23,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dino', dinoRouter);
+app.use('/resource', resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,5 +46,34 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+//Get the default connection 
+var db = mongoose.connection; 
+ 
+//Bind connection to error event  
+db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
+db.once("open", function(){ 
+ console.log("Connection to DB succeeded")
+}); 
+
+async function recreateDB() {
+  await dino.deleteMany();
+  let instance = new dino({name:"T-Rex", color:"Black", danger_rating:10});
+  instance.save( function(err, doc){
+    if(err) return console.error(err);
+    console.log("First Object Saved")
+  });
+  let instance2 = new dino({name:"Brontasaurus", color:"Rainbow", danger_rating:3});
+  instance2.save( function(err, doc){
+    if(err) return console.error(err);
+    console.log("First Object Saved")
+  });
+  let instance3 = new dino({name:"Leapluradon", color:"Pink", danger_rating:20});
+  instance3.save( function(err, doc){
+    if(err) return console.error(err);
+    console.log("First Object Saved")
+  });
+}
+let reseed = true;
+if(reseed) { recreateDB()}
 
 module.exports = app;
