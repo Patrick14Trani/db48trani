@@ -41,8 +41,16 @@ exports.dino_create_post = async function(req, res) {
 }; 
  
 // Handle Costume delete form on DELETE. 
-exports.dino_delete = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Dino delete DELETE ' + req.params.id); 
+exports.dino_delete = async function(req, res) { 
+    console.log("delete " + req.params.id)
+    try{
+        result = await dino.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch(err){
+        res.status(500)
+        res.send(`error: deleting ${err}`)
+    }
 }; 
  
 // Handle Costume update form on PUT. 
