@@ -1,6 +1,6 @@
 var dino = require('../models/dino'); 
  
-// List of all Costumes 
+// List of all Dinos
 exports.dino_list = async function(req, res) { 
     try{
         theDinos = await dino.find();
@@ -11,7 +11,7 @@ exports.dino_list = async function(req, res) {
     }
 }; 
  
-// for a specific Costume. 
+// for a specific dino
 exports.dino_detail = async function(req, res) { 
     console.log("detail"  + req.params.id) 
     try { 
@@ -23,7 +23,7 @@ exports.dino_detail = async function(req, res) {
     }  
 }; 
  
-// Handle Costume create on POST. 
+// Handle Dino create on POST 
 exports.dino_create_post = async function(req, res) { 
     console.log(req.body)
     let document = new dino()
@@ -40,7 +40,7 @@ exports.dino_create_post = async function(req, res) {
 
 }; 
  
-// Handle Costume delete form on DELETE. 
+// Handle Dino delete form on DELETE. 
 exports.dino_delete = async function(req, res) { 
     console.log("delete " + req.params.id)
     try{
@@ -53,7 +53,7 @@ exports.dino_delete = async function(req, res) {
     }
 }; 
  
-// Handle Costume update form on PUT. 
+// Handle Dino update form on PUT. 
 exports.dino_update_put = async function(req, res) { 
     console.log(`update on id ${req.params.id} with body 
     ${JSON.stringify(req.body)}`) 
@@ -84,4 +84,5 @@ exports.dino_view_all_Page = async function(req, res) {
         res.status(500); 
         res.send(`{"error": ${err}}`); 
     }   
-}; 
+};
+
