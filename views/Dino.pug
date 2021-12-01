@@ -6,7 +6,14 @@ block content
   -
     let items = results
   
-  div(class="container-fluid")
-    div(class="row")
-      for dino in results
-        div(class="col-sm-3") Dino: #{dino.name} -- Color: #{dino.color} -- Danger Rating: #{dino.danger_rating}
+  div(class="container-fluid") 
+    div(class="row m-1") 
+      each item in items  
+        - let destination = `dispatch(\"/dinos/update?id=${item._id}\")` 
+        div(class="row-sm-2", class="m-1") Item #{item.name}(#{item.color}) is rated at #{item.danger_rating} 
+          button.btn( class="btn-primary ml-1", onclick= destination) Update 
+   
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    }
